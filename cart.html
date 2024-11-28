@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .cart-item img {
+            max-width: 100px;
+        }
+        .cart-item .item-details {
+            flex: 1;
+            padding-left: 20px;
+        }
+        .cart-summary {
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Книжный магазин</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Корзина</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Корзина -->
+    <section class="cart-section container py-5">
+        <h2 class="text-center">Ваша корзина</h2>
+        <div class="cart-items">
+            <!-- Пример товара в корзине -->
+            <div class="cart-item d-flex align-items-center mb-3">
+                <img src="images/book2.jpeg" alt="Книга 1">
+                <div class="item-details">
+                    <h5>Кутадгу Билиг</h5>
+                    <p>Автор: Жусуп Баласагын</p>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateQuantity('book1', -1)">-</button>
+                        <input type="number" id="book1" value="1" class="form-control form-control-sm w-25 text-center" min="1">
+                        <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateQuantity('book1', 1)">+</button>
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <p class="price">500 ₽</p>
+                </div>
+            </div>
+
+            <div class="cart-item d-flex align-items-center mb-3">
+                <img src="images/book1.webp" alt="Книга 2">
+                <div class="item-details">
+                    <h5>Диван Лугат Ат Турк</h5>
+                    <p>Автор: Махмуд Кашгари</p>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateQuantity('book2', -1)">-</button>
+                        <input type="number" id="book2" value="1" class="form-control form-control-sm w-25 text-center" min="1">
+                        <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateQuantity('book2', 1)">+</button>
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <p class="price">700 ₽</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сумма заказа -->
+        <div class="cart-summary">
+            <h4>Итого:</h4>
+            <p id="totalPrice">1200 ₽</p>
+            <button class="btn btn-primary w-100" onclick="window.location.href='contact.html'">Перейти к оформлению</button>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-light text-center py-3">
+        <p>&copy; 2024 Магазин книг. Все права защищены.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Функция для обновления количества товара
+        function updateQuantity(bookId, change) {
+            const inputField = document.getElementById(bookId);
+            let currentValue = parseInt(inputField.value);
+            currentValue += change;
+
+            if (currentValue >= 1) {
+                inputField.value = currentValue;
+                updateTotalPrice();
+            }
+        }
+
+        // Обновление общей стоимости
+        function updateTotalPrice() {
+            const book1Quantity = parseInt(document.getElementById('book1').value);
+            const book2Quantity = parseInt(document.getElementById('book2').value);
+
+            const book1Price = 500;
+            const book2Price = 700;
+
+            const totalPrice = (book1Quantity * book1Price) + (book2Quantity * book2Price);
+            document.getElementById('totalPrice').textContent = totalPrice + " ₽";
+        }
+    </script>
+</body>
+</html>
